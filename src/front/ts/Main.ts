@@ -5,18 +5,24 @@
  * Project: DAW - CEIoT - Project Structure
  * Brief: Main frontend file (where the logic is)
 =============================================================================*/
+interface DeviceInt
+{
+    id:string;
+    name:string;
+    description:string;
+    state:string;
+    type:string;
+}
 
-class Main implements EventListenerObject, GETResponseListener {
-
-  
+class Main implements EventListenerObject, GETResponseListener, POSTResponseListener {
 
    myf:MyFramework = new MyFramework();
    counter:number=0;
+   view:ViewMainPage;
 
     main():void {
         console.log("Soy un mensaje");
         
-
         let usuarios:Array<User>;
         usuarios = new Array<User>();
         usuarios.push (new User(1, "Agustin", "agus@gmail.com"));
@@ -28,6 +34,7 @@ class Main implements EventListenerObject, GETResponseListener {
         }
        // let myf:MyFramework = new MyFramework();
        this.myf = new MyFramework();
+       this.view = new ViewMainPage(this.myf);
 
         //myf.configClick ("boton", ()=>(this.evento));
 
@@ -37,8 +44,7 @@ class Main implements EventListenerObject, GETResponseListener {
         //this.myf.requestGET("http://localhost:8000", this);
         
         this.myf.configEventLister ("click", "boton", this);
-
-
+       
         //let b:HTMLElement  = myf.getElementById ("boton");
        // let b2:HTMLElement  = myf.getElementById ("boton2");
        // console.log(b2);
@@ -55,27 +61,63 @@ class Main implements EventListenerObject, GETResponseListener {
             o.printInfo();
         }
     }
-    
+
     handleEvent(evt: Event): void
+    {
+        console.log (`se hizo "${evt.type}"`);
+
+        let b:HTMLElement = this.myf.getElementByEvent (evt);
+        console.log (b);
+
+        if (b.id == "boton")
+        {
+            this.counter ++;
+            b.textContent = `Click ${this.counter}`;
+        }
+        else 
+        {
+            //console.log (`se hizo "${evt.type}"`);
+            let state:boolean = this.view.getSwitchStateById (b.id);
+
+            let data = { "id":`${b.id}`, "state":state };
+            this.myf.requestPOST ("https://cors-anywhere.herokuapp.com/https://postman-echo.com/post", data, this);
+        }
+    }
+    
+    /*handleEvent(evt: Event): void
     {
         console.log("se hizo click");
         console.log(this);
         let b:HTMLElement = this.myf.getElementByEvent (evt);
         this.counter++;
         b.textContent = `Click ${this.counter}`;
-    }
-
+    }*/
 
     handleGETResponse(status: number, response: string): void {
         //throw new Error("Method not implemented.");
-        console.log("Respuesta del server: " + response);
+        //console.log("Respuesta del server: " + response);
+        let data:Array<DeviceInt> = JSON.parse(response);
+        //console.log(data);
+        this.view.showDevices(data);
+        for (let d of data)
+        {
+            let b:HTMLElement = this.myf.getElementById (`dev_${d.id}`);
+            b.addEventListener ("click", this);
+        }
     }
+
+    handlePOSTResponse(status: number, response: string): void
+    {
+        console.log (status);
+        console.log (response);
+    }
+}
     
  /*   evento(ev:Event):void{
         console.log("se hizo click");
         //console.log(this);
     }*/
-}
+
 
 
 //Metodo onload del DOM: indica que el HTML ya se termino de cargar.
