@@ -102,7 +102,8 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
         for (let d of data)
         {
             let b:HTMLElement = this.myf.getElementById (`dev_${d.id}`);
-            b.addEventListener ("click", this);
+            this.myf.configEventLister ("click", b.id, this);
+            //b.addEventListener ("click", this);
         }
     }
 
