@@ -67,7 +67,7 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
         console.log (`se hizo "${evt.type}"`);
 
         let b:HTMLElement = this.myf.getElementByEvent (evt);
-        console.log (b);
+        //console.log (b);
 
         if (b.id == "boton")
         {
@@ -78,6 +78,7 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
         {
             //console.log (`se hizo "${evt.type}"`);
             let state:boolean = this.view.getSwitchStateById (b.id);
+            //console.log(b);
 
             let data = { "id":`${b.id}`, "state":state };
             this.myf.requestPOST ("https://cors-anywhere.herokuapp.com/https://postman-echo.com/post", data, this);
@@ -102,7 +103,14 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
         for (let d of data)
         {
             let b:HTMLElement = this.myf.getElementById (`dev_${d.id}`);
+            let i:HTMLInputElement = <HTMLInputElement> b;
             this.myf.configEventLister ("click", b.id, this);
+            if (d.state == "1"){
+                i.checked=true;
+            }
+            else {
+                i.checked=false;
+            }
             //b.addEventListener ("click", this);
         }
     }

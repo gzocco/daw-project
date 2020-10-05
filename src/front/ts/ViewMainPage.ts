@@ -17,7 +17,7 @@ constructor(myf:MyFramework){
             else {
                 i = "window.png";
             }
-        
+                
         e.innerHTML += `<li class="collection-item avatar">
           <img src="/static/images/${i}" alt="" class="circle">
           <span class="title">${dev.name}</span>
@@ -40,7 +40,6 @@ constructor(myf:MyFramework){
     {
         let e:HTMLElement = this.myf.getElementById(id);
         let i:HTMLInputElement = <HTMLInputElement> e;
-
         return i.checked;
     }
 }
