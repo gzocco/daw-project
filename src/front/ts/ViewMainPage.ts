@@ -10,13 +10,20 @@ constructor(myf:MyFramework){
     let e:HTMLElement = this.myf.getElementById ("deviceList");
     console.log(e);
     let i:string;
+    let state:string;
     for (let dev of list){
-        if (dev.type == "0"){
+        if (dev.type == 0){
              i = "lightbulb.png";
         }
             else {
                 i = "window.png";
             }
+        if (dev.state == 0) {
+            state = "";
+        }
+        else {
+            state = "checked";
+        }
                 
         e.innerHTML += `<li class="collection-item avatar">
           <img src="/static/images/${i}" alt="" class="circle">
@@ -26,7 +33,7 @@ constructor(myf:MyFramework){
             <div class="switch">
               <label>
                 Off
-                <input id="dev_${dev.id}" type="checkbox">
+                <input id="dev_${dev.id}" type="checkbox" ${state}>
                 <span class="lever"></span>
                 On
               </label>

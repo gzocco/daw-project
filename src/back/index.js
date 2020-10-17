@@ -21,8 +21,13 @@ app.use(express.static('/home/node/app/static/'));
 
 //=======[ Main module code ]==================================================
 
-app.get('/devices/', function(req, res, next) {
+/*app.get('/devices/', function(req, res, next) {
     response = "{ 'key1':'value1' }"
+    res.send(JSON.stringify(response)).status(200);
+});
+*/
+app.get('/devices/', function(req, res, next) {
+    let response = require('./datos.json');
     res.send(JSON.stringify(response)).status(200);
 });
 

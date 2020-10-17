@@ -7,11 +7,11 @@
 =============================================================================*/
 interface DeviceInt
 {
-    id:string;
+    id:number; //string;
     name:string;
     description:string;
-    state:string;
-    type:string;
+    state:number;   //string;
+    type:number;    //string;    // Salvo la descripcion, hay que cambiar todos de string a number.
 }
 
 class Main implements EventListenerObject, GETResponseListener, POSTResponseListener {
@@ -40,9 +40,11 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
 
         let b:HTMLElement = document.getElementById("boton");
         b.addEventListener("click", this);
-        this.myf.requestGET("Devices.txt", this);
-        //this.myf.requestGET("http://localhost:8000", this);
         
+        //this.myf.requestGET("Devices.txt", this); // Primera iteracion, obtengo info devices desde archivo.
+        // Para usar el backend
+        this.myf.requestGET("http://localhost:8000/devices", this); // Obtiene info de devices desde backend.
+                
         this.myf.configEventLister ("click", "boton", this);
        
         //let b:HTMLElement  = myf.getElementById ("boton");
@@ -103,14 +105,15 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
         for (let d of data)
         {
             let b:HTMLElement = this.myf.getElementById (`dev_${d.id}`);
-            let i:HTMLInputElement = <HTMLInputElement> b;
+            //let i:HTMLInputElement = <HTMLInputElement> b;
+            //console.log(i);
             this.myf.configEventLister ("click", b.id, this);
-            if (d.state == "1"){
+           /* if (d.state == "1"){
                 i.checked=true;
             }
             else {
                 i.checked=false;
-            }
+            }*/
             //b.addEventListener ("click", this);
         }
     }
