@@ -33,7 +33,7 @@ constructor(myf:MyFramework){
             <div class="switch">
               <label>
                 Off
-                <input id="dev_${dev.id}" type="checkbox" ${state}>
+                <input id="${dev.id}" type="checkbox" ${state}>
                 <span class="lever"></span>
                 On
               </label>
@@ -41,7 +41,7 @@ constructor(myf:MyFramework){
         </li>`;
     }
     }
-
+//  <input id="dev_${dev.id}" type="checkbox" ${state}>
 
     getSwitchStateById(id:string):boolean
     {
