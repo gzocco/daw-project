@@ -85,7 +85,9 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
             // El elemento es un switch.
             //console.log (`se hizo "${evt.type}"`);
             let state: boolean = this.view.getSwitchStateById(element.id);
-            let switchData = { "id": `${element.id}`, "state": state };
+            //let switchData = { "id": `${element.id}`, "state": state };
+            // Quito el prefijo del id html para que concuerde con el id de la DB que usa la API.
+            let switchData = { "id": `${element.id.replace('dev_', '')}`, "state": state };
             //console.log(data);
             this.myf.requestPOST("http://localhost:8000/devices", switchData, this);
         }
@@ -95,7 +97,7 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
         let deviceList: Array<DeviceInterface> = JSON.parse(response);
         this.view.showDevices(deviceList);
         for (let device of deviceList) {
-            let deviceElement: HTMLElement = this.myf.getElementById(`${device.id}`);    //dev_
+            let deviceElement: HTMLElement = this.myf.getElementById(`dev_${device.id}`);    //dev_
             this.myf.configEventLister("click", deviceElement.id, this);
         }
     }
