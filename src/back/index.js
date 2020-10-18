@@ -8,28 +8,27 @@
 
 //=======[ Settings, Imports & Data ]==========================================
 
-var PORT    = 3000;
+var PORT = 3000;    // Port interno donde escucha la API.
 
 var express = require('express');
-var app     = express();
-var mysql   = require('./mysql-connector');
+var app = express();
+var mysql = require('./mysql-connector');
 
 // to parse application/json
-app.use(express.json()); 
+app.use(express.json());
 // to serve static files
 app.use(express.static('/home/node/app/static/'));
 
 //=======[ Main module code ]==================================================
 
-/*app.get('/devices/', function(req, res, next) {
-    response = "{ 'key1':'value1' }"
-    res.send(JSON.stringify(response)).status(200);
-});
+
+/*
+*   Metodo de API para obtener listado completo de devices.
 */
-app.get('/devices/', function(req, res, next) {
+app.get('/devices/', function (req, res, next) {
     //let response = require('./datos.json');     // Obtengo info de devices desde archivo JSON.
-    mysql.query('select * from Devices', function(err,resp){
-        if(err){
+    mysql.query('select * from Devices', function (err, resp) {
+        if (err) {
             res.send(err).status(400);
             return;
         }
@@ -39,9 +38,27 @@ app.get('/devices/', function(req, res, next) {
 });
 
 
-app.post('/devices',function(req,res){
-    mysql.query('update Devices set state= ? where id=?',[req.body.state,req.body.id], function (err,resp){
-        if(err){
+/*
+*   Metodo de API para obtener device por id.
+*/
+app.get('/devices/:id', function (req, res, next) {
+    mysql.query('select * from Devices where id=?', [req.params.id], function (err, resp) {
+        if (err) {
+            res.send(err).status(400);
+            return;
+        }
+        res.send(resp);
+        //console.log(resp);
+    });   
+});
+
+
+/*
+*   Metodo de API para actualizar state de un device referenciado por id.
+*/
+app.post('/devices', function (req, res) {
+    mysql.query('update Devices set state= ? where id=?', [req.body.state, req.body.id], function (err, resp) {
+        if (err) {
             res.send(err).status(400);
             return;
         }
@@ -53,10 +70,10 @@ app.post('/devices',function(req,res){
         df[0].state=req.body.state;
     }
     res.json(df);*/
-    });
+});
 
 
-app.listen(PORT, function(req, res) {
+app.listen(PORT, function (req, res) {
     console.log("NodeJS API running correctly");
 });
 

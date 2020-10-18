@@ -1,3 +1,5 @@
+//=======[ Settings, Imports & Data ]==========================================
+
 interface GETResponseListener {
     handleGETResponse(status: number, response: string): void;
 }
@@ -6,22 +8,34 @@ interface POSTResponseListener {
     handlePOSTResponse(status: number, response: string): void;
 }
 
-
+//=======[ Main module code ]==================================================
+/*
+* Clase MyFramework
+* Implementa:
+*   getElementById
+*   getElementByEvent
+*   configClick
+*   requestGET
+*   requestPOST
+*   configEventLister
+**/
 class MyFramework {
+
     getElementById(id: string): HTMLElement {
-        let e: HTMLElement;
-        e = document.getElementById(id);
-        return e;
+        let element: HTMLElement;
+        element = document.getElementById(id);
+        return element;
     }
 
     getElementByEvent(evt: Event): HTMLElement {
         return <HTMLElement>evt.target;
     }
 
-    configClick(id: string, callback: any): void {
+/*     configClick(id: string, callback: any): void {
         let b: HTMLElement = document.getElementById(id);
         b.addEventListener("click", () => { callback(); });
-    }
+    } */
+
     requestGET(url: string, listener: GETResponseListener): void {
         let xhr: XMLHttpRequest;
         xhr = new XMLHttpRequest();
@@ -53,7 +67,6 @@ class MyFramework {
                 }
             }
         };
-
         xhr.open('POST', url);
 
         // envio JSON en body de request (Usar con NODEJS)
@@ -72,8 +85,9 @@ class MyFramework {
         //______________________________
     }
 
+    //Clase para escuchar eventos/
     configEventLister(event: string, id: string, listener: EventListenerObject): void {
-        let b: HTMLElement = document.getElementById(id);
-        b.addEventListener(event, listener);
+        let element: HTMLElement = document.getElementById(id);
+        element.addEventListener(event, listener);
     }
 }
