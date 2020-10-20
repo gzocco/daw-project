@@ -34,8 +34,31 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
     counter: number = 0;
     view: ViewMainPage;
 
+    
+    //GaugeChart: gauge;
+    
+
     main(): void {
         console.log("Inicia Main.ts");
+
+        // Element inside which you want to see the chart
+let element = document.querySelector('#gaugeArea')
+ 
+// Properties of the gauge
+let gaugeOptions = {
+  hasNeedle: true,
+  needleColor: 'gray',
+  needleUpdateSpeed: 1000,
+  arcColors: ['rgb(44, 151, 222)', 'lightgray'],
+  arcDelimiters: [30],
+  rangeLabel: ['0', '100'],
+  centralLabel: '50',
+}
+let val = 10;
+        // Drawing and updating the chart
+// GaugeChart.gaugeChart(element, 300, gaugeOptions).updateNeedle(50);
+
+GaugeChart.gaugeChart(element, 300, gaugeOptions).updateNeedle(val);
 
         /* let usuarios: Array<User>;
         usuarios = new Array<User>();
@@ -54,6 +77,7 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
         // boton.addEventListener("click", this);
         this.myf.configEventLister("click", "boton", this);
         boton.textContent = "Boton cambiado!!"; // Cambia el texto contenido en el boton, solo para ejemplo.
+
 
     }
 

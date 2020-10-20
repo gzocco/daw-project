@@ -13,6 +13,7 @@ var PORT = 3000;    // Port interno donde escucha la API.
 var express = require('express');
 var app = express();
 var mysql = require('./mysql-connector');
+//var gauge = require('gauge-chart');
 
 // to parse application/json
 app.use(express.json());
