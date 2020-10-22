@@ -27,12 +27,6 @@
 </nav>
 <!-- Page Body -->
 <div class="container">
-    <a id="boton-prueba"></a>
-    <h4>Boton de prueba</h4>
-    <a id="boton" class="waves-effect waves-light btn">button</a>
-</div>
-<br />
-<div class="container">
     <a id="dispositivos"></a>
     <h4>Dispositivos</h4>
     <br />
@@ -40,6 +34,54 @@
     <!-- Class ViewMainPage.ts muestra listado de dispositivos con metodo showDevices-->
     <br />
 </div>
+<div class="container">
+    <a id="boton-prueba"></a>
+    <h4>Boton de prueba</h4>
+    <a id="boton" class="waves-effect waves-light btn">button</a>
+</div>
+<br />
+
+<!-- Modal Trigger -->
+<a class="waves-effect waves-light btn modal-trigger" href="#modalE">Edit</a>
+<!-- Modal Structure -->
+<div id="modalE" class="modal">
+    <div class="modal-content">
+        <h4>Device Edition</h4>
+        <div class="row">
+            <div class="input-field col s6">
+                <input placeholder="Nombre del dispositivo" id="nameId" type="text" class="validate">
+                <label for="nameId">Device Name</label>
+            </div>
+            <div class="input-field col s6">
+                <input placeholder="Descripción del dispositivo" id="descriptionId" type="text" class="validate">
+                <label for="descriptionId">Device Description</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <select id="deviceSelect" class="icons">
+                    <option value="0" data-icon="/static/images/lightbulb.png" class="left circle">Lampara
+                    </option>
+                    <option value="1" data-icon="/static/images/window.png" class="left circle">Persiana
+                    </option>
+                </select>
+                <label>Device type</label>
+            </div>
+            <!-- <a id="boton" class="waves-effect waves-light btn">Save</a> -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s4">
+            <div class="modal-footer">
+                <a id="save" href="#!" class="modal-close waves-effect waves-green btn-flat">Save</a>
+            </div>
+        </div>
+        <div class="col s4">
+            <div class=".modal-close">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Page Footer -->
 <footer class="page-footer" style="background-color:#124580">
     <div class="container">

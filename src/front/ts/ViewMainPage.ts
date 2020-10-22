@@ -37,23 +37,58 @@ class ViewMainPage {
                 state = "checked";
             }
 
-            element.innerHTML += `<li class="collection-item avatar">
-          <img src="/static/images/${image}" alt="" class="circle">
-          <span class="title">${dev.name}</span>
-          <p>${dev.description}</p>
-          <a href="#!" class="secondary-content">  <!-- Switch -->
-            <div class="switch">
-              <label>
+            element.innerHTML +=
+            `<li class="collection-item avatar">
+    <img src="/static/images/${image}" alt="" class="circle">
+    <span class="title">${dev.name}</span>
+    <p>${dev.description}</p>
+    <a href="#!" class="secondary-content">
+        <!-- Switch -->
+        <div class="switch">
+            <label>
                 Off
                 <input id="dev_${dev.id}" type="checkbox" ${state}>
                 <span class="lever"></span>
                 On
-              </label>
-            </div></a>
-        </li>`;
+            </label>
+        </div>
+    </a>
+    <!-- Modal Trigger -->
+    <a class="waves-effect waves-light btn modal-trigger" href="#modal_${dev.id}">Edit</a>
+    <!-- Modal Structure -->
+    <div id="modal_${dev.id}" class="modal">
+        <div class="modal-content">
+            <h4>Device</h4>
+            <div class="row">
+            <div class="input-field col s6">
+                <input placeholder="Nombre del dispositivo" id="nameId_${dev.id}" type="text" class="validate">
+                <label class="active" for="nameId_${dev.id}">Device Name</label>
+            </div>
+            <div class="input-field col s6">
+                <input placeholder="Descripción del dispositivo" id="descriptionId_${dev.id}" type="text" class="validate">
+                <label class="active" for="descriptionId_${dev.id}">Device Description</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <select id="deviceSelect_${dev.id}" class="icons">
+                    <option value="0" data-icon="/static/images/lightbulb.png" class="left circle">Lampara
+                    </option>
+                    <option value="1" data-icon="/static/images/window.png" class="left circle">Persiana
+                    </option>
+                </select>
+                <label>Device type</label>
+            </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
+</li>`;
+//M.AutoInit();
         }
+        M.AutoInit();
     }
-    //  <input id="dev_${dev.id}" type="checkbox" ${state}>
 
     getSwitchStateById(id: string): boolean {
         let element: HTMLElement = this.myf.getElementById(id);

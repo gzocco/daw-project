@@ -33,6 +33,7 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
     myf: MyFramework = new MyFramework();
     counter: number = 0;
     view: ViewMainPage;
+    //M: any;
 
 
     //GaugeChart: gauge;
@@ -57,7 +58,40 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
         let boton: HTMLElement = document.getElementById("boton");
         // boton.addEventListener("click", this);
         this.myf.configEventLister("click", "boton", this);
+        //this.myf.configEventLister("click", "save_1", this);
         boton.textContent = "Boton cambiado!!"; // Cambia el texto contenido en el boton, solo para ejemplo.
+
+        M.AutoInit();
+
+        if (document.readyState !== 'loading') {
+            console.log('document is already ready, just execute code here');
+            var options = {
+                dropdownOptions: "",
+                //indicators: true
+            };
+            var elems1 = document.querySelectorAll('select');
+            console.log(elems1)
+            //var instances1 = M.FormSelect.init(elems1, options);
+            
+            /* var elems2 = document.querySelectorAll('.collapsible');
+            var instances2 = M.Collapsible.init(elems2, options);
+
+            var elems3 = document.querySelectorAll('.dropdown-trigger');
+            var instances3 = M.Dropdown.init(elems3, options); */
+
+            var elems4 = document.querySelectorAll('.modal');
+            console.log(elems4);
+           // var instances = M.Modal.init(elems4, options);
+
+            // myInitCode();
+        } else {
+            document.addEventListener('DOMContentLoaded', function () {
+                console.log('document was not ready, place code here');
+                //  myInitCode();
+            });
+        }
+
+        // function myInitCode() {}
     }
 
     /* 
@@ -79,21 +113,44 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
         //console.log(`se hizo "${evt.type}"`);
 
         let element: HTMLElement = this.myf.getElementByEvent(evt);
+        console.log(element.id);
 
-        if (element.id == "boton") {
-            this.counter++;
-            element.textContent = `Click ${this.counter}`;
+        if (element.id == "save_1") {
+            //this.counter++;
+            //element.textContent = `Click ${this.counter}`;
+
+            /* let nameId: HTMLElement = this.myf.getElementById("nameId_1");
+            let nameText: string = nameId.value;
+            let descriptionId: HTMLElement = this.myf.getElementById("descriptionId_1");
+            let descriptionText: string = descriptionId.value;
+            console.log(nameText);
+            console.log(descriptionText);
+            descriptionId.value = "Hola";
+            console.log(descriptionText);
+
+            let devTypeId: HTMLElement = this.myf.getElementById("deviceSelect_1");
+            let devType: number = devTypeId.value;
+            console.log(devType);
+            devTypeId.value = 0;
+ */
+            //console.log(textArea);
         }
-        else {
-            // El elemento es un switch.
-            //console.log (`se hizo "${evt.type}"`);
-            let state: boolean = this.view.getSwitchStateById(element.id);
-            //let switchData = { "id": `${element.id}`, "state": state };
-            // Quito el prefijo del id html para que concuerde con el id de la DB que usa la API.
-            let switchData = { "id": `${element.id.replace('dev_', '')}`, "state": state };
-            //console.log(data);
-            this.myf.requestPOST("http://localhost:8000/devices", switchData, this);
-        }
+        else
+            if (element.id == "boton") {
+                this.counter++;
+                element.textContent = `Click ${this.counter}`;
+
+            }
+            else {
+                // El elemento es un switch.
+                //console.log (`se hizo "${evt.type}"`);
+                let state: boolean = this.view.getSwitchStateById(element.id);
+                //let switchData = { "id": `${element.id}`, "state": state };
+                // Quito el prefijo del id html para que concuerde con el id de la DB que usa la API.
+                let switchData = { "id": `${element.id.replace('dev_', '')}`, "state": state };
+                //console.log(data);
+                this.myf.requestPOST("http://localhost:8000/devices", switchData, this);
+            }
     }
 
     handleGETResponse(status: number, response: string): void {
