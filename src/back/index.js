@@ -75,9 +75,9 @@ app.post('/devices/create', function (req, res) {
 });
 
 /*
-*   Metodo de API para crear un nuevo device.
+*   Metodo de API para eliminar un device referenciado por id.
 */
-app.post('/devices/remove', function (req, res) {
+app.post('/devices/delete', function (req, res) {
     mysql.query('delete from Devices where id= ?', [req.body.id], function (err, resp) {
         if (err) {
             res.send(err).status(400);
