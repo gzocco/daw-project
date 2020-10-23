@@ -34,31 +34,8 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
     counter: number = 0;
     view: ViewMainPage;
 
-    
-    //GaugeChart: gauge;
-    
-
     main(): void {
         console.log("Inicia Main.ts");
-
-        // Element inside which you want to see the chart
-let element = document.querySelector('#gaugeArea')
- 
-// Properties of the gauge
-let gaugeOptions = {
-  hasNeedle: true,
-  needleColor: 'gray',
-  needleUpdateSpeed: 1000,
-  arcColors: ['rgb(44, 151, 222)', 'lightgray'],
-  arcDelimiters: [30],
-  rangeLabel: ['0', '100'],
-  centralLabel: '50',
-}
-let val = 10;
-        // Drawing and updating the chart
-// GaugeChart.gaugeChart(element, 300, gaugeOptions).updateNeedle(50);
-
-GaugeChart.gaugeChart(element, 300, gaugeOptions).updateNeedle(val);
 
         /* let usuarios: Array<User>;
         usuarios = new Array<User>();
@@ -69,16 +46,34 @@ GaugeChart.gaugeChart(element, 300, gaugeOptions).updateNeedle(val);
         for (let i in usuarios) {
             usuarios[i].printInfo();
         } */
+
         this.myf = new MyFramework();
         this.view = new ViewMainPage(this.myf);
         // Hace un GET contra el Backend para obtener lista devices.
         this.myf.requestGET("http://localhost:8000/devices", this);
-        let boton: HTMLElement = document.getElementById("boton");
-        // boton.addEventListener("click", this);
-        this.myf.configEventLister("click", "boton", this);
-        boton.textContent = "Boton cambiado!!"; // Cambia el texto contenido en el boton, solo para ejemplo.
+        let boton: HTMLElement = document.getElementById("botonOk");
+        this.myf.configEventLister("click", "botonOk", this);
 
+        if (document.readyState !== 'loading') {
+            console.log('Document is already ready, Init Materialize');
+            matInit();
+        }
+        else {
+            document.addEventListener('DOMContentLoaded', function () {
+                console.log('Document was not ready, Init Materialize');
+                matInit();
+            });
+        }
 
+        function matInit() {
+            M.AutoInit();
+            console.log('Elementos de Materialize inicializados Globalmente.');
+            // Todo: Inicializar por separado cada elemento de Materialize.
+            /* var optionsColap = {
+            };
+            var elemsColap = document.querySelectorAll('.collapsible');
+            var instanceColap = M.Collapsible.init(elemsColap, optionsColap); */
+        }
     }
 
     /* 
@@ -97,19 +92,22 @@ GaugeChart.gaugeChart(element, 300, gaugeOptions).updateNeedle(val);
     *   Emplea URI de backend para reaccionar ante eventos con POST.
     */
     handleEvent(evt: Event): void {
-        //console.log(`se hizo "${evt.type}"`);
-
         let element: HTMLElement = this.myf.getElementByEvent(evt);
-
-        if (element.id == "boton") {
-            this.counter++;
-            element.textContent = `Click ${this.counter}`;
+        
+        if (element.id == "botonOk") {
+            // Reacciono ante el evento del boton de Ok de Agregar dispositivo.
+            let nameIdC: HTMLElement = this.myf.getElementById("nameIdC");
+            let nameText: string = nameIdC.value;
+            let descriptionIdC: HTMLElement = this.myf.getElementById("descriptionIdC");
+            let descriptionText: string = descriptionIdC.value;
+            let devTypeIdC: HTMLElement = this.myf.getElementById("deviceSelectC");
+            let devType: number = devTypeIdC.value;
+            let deviceData = { "name": nameText, "description": descriptionText, "state": "0", "type": devType };
+            this.myf.requestPOST("http://localhost:8000/devices/create", deviceData, this);
         }
         else {
-            // El elemento es un switch.
-            //console.log (`se hizo "${evt.type}"`);
+            // Reacciono por click en un elemento tipo switch.
             let state: boolean = this.view.getSwitchStateById(element.id);
-            //let switchData = { "id": `${element.id}`, "state": state };
             // Quito el prefijo del id html para que concuerde con el id de la DB que usa la API.
             let switchData = { "id": `${element.id.replace('dev_', '')}`, "state": state };
             //console.log(data);
@@ -121,7 +119,7 @@ GaugeChart.gaugeChart(element, 300, gaugeOptions).updateNeedle(val);
         let deviceList: Array<DeviceInterface> = JSON.parse(response);
         this.view.showDevices(deviceList);
         for (let device of deviceList) {
-            let deviceElement: HTMLElement = this.myf.getElementById(`dev_${device.id}`);    //dev_
+            let deviceElement: HTMLElement = this.myf.getElementById(`dev_${device.id}`);
             this.myf.configEventLister("click", deviceElement.id, this);
         }
     }

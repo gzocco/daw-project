@@ -14,7 +14,7 @@
         <a href="#!" class="brand-logo left" style="margin-left: 15px;">Smart Home</a>
         <ul id="nav-mobile" class="right" style="margin-right: 15px;">
             <li class="active">
-                <a href="#boton-prueba">Boton de prueba</a>
+                <a href="#agregarDispo">Agregar dispositivo</a>
             </li>
             <li class="active">
                 <a href="#dispositivos">Dispositivos</a>
@@ -26,18 +26,44 @@
     </div>
 </nav>
 <!-- Page Body -->
-<div class="container">
-    <a id="boton-prueba"></a>
-    <h4>Boton de prueba</h4>
-    <a id="boton" class="waves-effect waves-light btn">button</a>
+<!-- Desplegable para creacion de un nuevo dispositivo. -->
+<div class="container"></div>
+<a id="agregarDispo"></a>
+<ul class="collapsible">
+    <li>
+        <div class="collapsible-header"><i class="material-icons">filter_drama</i>Agregar dispositivo</div>
+        <div class="collapsible-body">
+            <span>
+                <h4>Crear dispositivo</h4>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input placeholder="Nombre del dispositivo" id="nameIdC" type="text" class="validate">
+                        <label for="nameId">Device Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input placeholder="Descripción del dispositivo" id="descriptionIdC" type="text"
+                            class="validate">
+                        <label for="descriptionId">Device Description</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <select id="deviceSelectC" class="icons">
+                            <option value="0" data-icon="/static/images/lightbulb.png" class="left circle">Lampara
+                            </option>
+                            <option value="1" data-icon="/static/images/window.png" class="left circle">Persiana
+                            </option>
+                        </select>
+                        <label>Device type</label>
+                    </div>
+                    <!-- <a id="boton" class="waves-effect waves-light btn">Save</a> -->
+                </div>
+                <a id="botonOk" href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+            </span>
+        </div>
+    </li>
+</ul>
 </div>
-<br />
-<!-- Prueba de chart gauge -->
-<div class="container">
-    <h4>Gauge Chart</h4>
-    <div id="gaugeArea"></div>
-</div>
-<br />
+<!-- Listado de dispositivos creado dinamicamente. -->
 <div class="container">
     <a id="dispositivos"></a>
     <h4>Dispositivos</h4>
@@ -46,6 +72,7 @@
     <!-- Class ViewMainPage.ts muestra listado de dispositivos con metodo showDevices-->
     <br />
 </div>
+<br />
 <!-- Page Footer -->
 <footer class="page-footer" style="background-color:#124580">
     <div class="container">
@@ -71,7 +98,6 @@
 <script type="text/javascript" src="js/User.js"></script>
 <script type="text/javascript" src="js/MyFramework.js"></script>
 <script type="text/javascript" src="js/ViewMainPage.js"></script>
-<script src="https://unpkg.com/gauge-chart@latest/dist/bundle.js"></script>
 </body>
 
 </html>
