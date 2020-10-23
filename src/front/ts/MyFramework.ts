@@ -31,11 +31,6 @@ class MyFramework {
         return <HTMLElement>evt.target;
     }
 
-/*     configClick(id: string, callback: any): void {
-        let b: HTMLElement = document.getElementById(id);
-        b.addEventListener("click", () => { callback(); });
-    } */
-
     requestGET(url: string, listener: GETResponseListener): void {
         let xhr: XMLHttpRequest;
         xhr = new XMLHttpRequest();
@@ -73,16 +68,6 @@ class MyFramework {
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         //console.log(data);
         xhr.send(JSON.stringify(data));
-        //______________________________
-        // envio Formdata en body de request (Usar con Apache,PythonWS,etc.)
-        //console.log(data);
-        /*let formData:FormData = new FormData();
-        for (let key in data) {
-            formData.append(key, data[key]);
-        }
-        console.log(formData);
-        xhr.send(formData);*/
-        //______________________________
     }
 
     //Clase para escuchar eventos/

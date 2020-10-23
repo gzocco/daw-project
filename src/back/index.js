@@ -13,7 +13,6 @@ var PORT = 3000;    // Port interno donde escucha la API.
 var express = require('express');
 var app = express();
 var mysql = require('./mysql-connector');
-//var gauge = require('gauge-chart');
 
 // to parse application/json
 app.use(express.json());
@@ -21,7 +20,6 @@ app.use(express.json());
 app.use(express.static('/home/node/app/static/'));
 
 //=======[ Main module code ]==================================================
-
 
 /*
 *   Metodo de API para obtener listado completo de devices.
@@ -35,9 +33,7 @@ app.get('/devices/', function (req, res, next) {
         }
         res.send(resp);
     });
-    //res.send(JSON.stringify(response)).status(200);     
 });
-
 
 /*
 *   Metodo de API para obtener device por id.
@@ -53,7 +49,6 @@ app.get('/devices/:id', function (req, res, next) {
     });   
 });
 
-
 /*
 *   Metodo de API para actualizar state de un device referenciado por id.
 */
@@ -65,12 +60,6 @@ app.post('/devices', function (req, res) {
         }
         res.send(resp);
     });
-
-    /*    let df =data.filter(item=>item.id==req.body.id);
-    if (df.length>0){
-        df[0].state=req.body.state;
-    }
-    res.json(df);*/
 });
 
 /*

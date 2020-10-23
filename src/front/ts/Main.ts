@@ -34,9 +34,6 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
     counter: number = 0;
     view: ViewMainPage;
 
-    //GaugeChart: gauge;
-
-
     main(): void {
         console.log("Inicia Main.ts");
 
@@ -49,35 +46,33 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
         for (let i in usuarios) {
             usuarios[i].printInfo();
         } */
+
         this.myf = new MyFramework();
         this.view = new ViewMainPage(this.myf);
         // Hace un GET contra el Backend para obtener lista devices.
         this.myf.requestGET("http://localhost:8000/devices", this);
-        let boton: HTMLElement = document.getElementById("boton");
-        // boton.addEventListener("click", this);
-        this.myf.configEventLister("click", "boton", this);
-
-        //boton.textContent = "Boton cambiado!!"; // Cambia el texto contenido en el boton, solo para ejemplo.
-
-        //M.AutoInit();
+        let boton: HTMLElement = document.getElementById("botonOk");
+        this.myf.configEventLister("click", "botonOk", this);
 
         if (document.readyState !== 'loading') {
-            console.log('document is already ready, just execute code here');
+            console.log('Document is already ready, Init Materialize');
             matInit();
         }
         else {
             document.addEventListener('DOMContentLoaded', function () {
-                console.log('document was not ready, place code here');
+                console.log('Document was not ready, Init Materialize');
                 matInit();
             });
         }
 
         function matInit() {
             M.AutoInit();
-            var optionsColap = {
+            console.log('Elementos de Materialize inicializados Globalmente.');
+            // Todo: Inicializar por separado cada elemento de Materialize.
+            /* var optionsColap = {
             };
             var elemsColap = document.querySelectorAll('.collapsible');
-            var instanceColap = M.Collapsible.init(elemsColap, optionsColap);
+            var instanceColap = M.Collapsible.init(elemsColap, optionsColap); */
         }
     }
 
@@ -97,56 +92,34 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
     *   Emplea URI de backend para reaccionar ante eventos con POST.
     */
     handleEvent(evt: Event): void {
-        //console.log(`se hizo "${evt.type}"`);
         let element: HTMLElement = this.myf.getElementByEvent(evt);
-
-        if (element.id == "boton") {
-            //this.counter++;
-            //element.textContent = `Click ${this.counter}`;
+        
+        if (element.id == "botonOk") {
+            // Reacciono ante el evento del boton de Ok de Agregar dispositivo.
             let nameIdC: HTMLElement = this.myf.getElementById("nameIdC");
             let nameText: string = nameIdC.value;
             let descriptionIdC: HTMLElement = this.myf.getElementById("descriptionIdC");
             let descriptionText: string = descriptionIdC.value;
-            console.log(nameText);
-            console.log(descriptionText);
-            //descriptionId.value = "Hola";
-            //console.log(descriptionText);
-
             let devTypeIdC: HTMLElement = this.myf.getElementById("deviceSelectC");
             let devType: number = devTypeIdC.value;
-            console.log(devType);
-
             let deviceData = { "name": nameText, "description": descriptionText, "state": "0", "type": devType };
             this.myf.requestPOST("http://localhost:8000/devices/create", deviceData, this);
-            //var instance = M.Collapsible.getInstance('elemsColap');
-            //instance.close(0);
-            //devTypeId.value = 0;
-
-            //console.log(textArea);
         }
-        else
-            if (element.id == "botonP") {
-                this.counter++;
-                element.textContent = `Click ${this.counter}`;
-
-            }
-            else {
-                // El elemento es un switch.
-                //console.log (`se hizo "${evt.type}"`);
-                let state: boolean = this.view.getSwitchStateById(element.id);
-                //let switchData = { "id": `${element.id}`, "state": state };
-                // Quito el prefijo del id html para que concuerde con el id de la DB que usa la API.
-                let switchData = { "id": `${element.id.replace('dev_', '')}`, "state": state };
-                //console.log(data);
-                this.myf.requestPOST("http://localhost:8000/devices", switchData, this);
-            }
+        else {
+            // Reacciono por click en un elemento tipo switch.
+            let state: boolean = this.view.getSwitchStateById(element.id);
+            // Quito el prefijo del id html para que concuerde con el id de la DB que usa la API.
+            let switchData = { "id": `${element.id.replace('dev_', '')}`, "state": state };
+            //console.log(data);
+            this.myf.requestPOST("http://localhost:8000/devices", switchData, this);
+        }
     }
 
     handleGETResponse(status: number, response: string): void {
         let deviceList: Array<DeviceInterface> = JSON.parse(response);
         this.view.showDevices(deviceList);
         for (let device of deviceList) {
-            let deviceElement: HTMLElement = this.myf.getElementById(`dev_${device.id}`);    //dev_
+            let deviceElement: HTMLElement = this.myf.getElementById(`dev_${device.id}`);
             this.myf.configEventLister("click", deviceElement.id, this);
         }
     }

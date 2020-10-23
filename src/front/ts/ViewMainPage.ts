@@ -8,21 +8,21 @@
 * Clase ViewMainPage
 * Se encarga de lo referido a la visualizacion de la pagina.
 */
-
 class ViewMainPage {
     private myf: MyFramework;
 
     constructor(myf: MyFramework) {
         this.myf = myf;
     }
+    
     /*
-    *   Muestra los dispositivos en la pagina.
+    *   Muestra los dispositivos en la pagina. Crea listado dinamicamente.
     */
     showDevices(list: DeviceInterface[]): void {
         let element: HTMLElement = this.myf.getElementById("deviceList");
-        //console.log(element);
         let image: string;
         let state: string;
+        // Selecciono imagen segun el dispositivo del que se trate.
         for (let dev of list) {
             if (dev.type == 0) {
                 image = "lightbulb.png";
@@ -38,7 +38,7 @@ class ViewMainPage {
             }
 
             element.innerHTML +=
-            `<li class="collection-item avatar">
+                `<li class="collection-item avatar">
     <img src="/static/images/${image}" alt="" class="circle">
     <span class="title">${dev.name}</span>
     <p>${dev.description}</p>
@@ -85,21 +85,17 @@ class ViewMainPage {
         </div>
     </div>
 </li>`;
-
-/* let event: string ="click"; 
-let listener: EventListenerObject = ;
-    let elementSave: HTMLElement = document.getElementById('save_${dev.id}');
-    elementSave.addEventListener(event, listener); */
-        
         }
         // Reinicializo los componentes de Materialize en forma general!
-        //M.AutoInit();
+        M.AutoInit();
     }
 
+    /*
+    * Obtengo el estado del dispositivo. Si esta checked o no.
+    */
     getSwitchStateById(id: string): boolean {
         let element: HTMLElement = this.myf.getElementById(id);
         let input: HTMLInputElement = <HTMLInputElement>element;
         return input.checked;
     }
-    
 }
