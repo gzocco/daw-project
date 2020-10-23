@@ -33,8 +33,6 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
     myf: MyFramework = new MyFramework();
     counter: number = 0;
     view: ViewMainPage;
-    //M: any;
-
 
     //GaugeChart: gauge;
 
@@ -58,7 +56,7 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
         let boton: HTMLElement = document.getElementById("boton");
         // boton.addEventListener("click", this);
         this.myf.configEventLister("click", "boton", this);
-        //this.myf.configEventLister("click", "save_1", this);
+        
         boton.textContent = "Boton cambiado!!"; // Cambia el texto contenido en el boton, solo para ejemplo.
 
         M.AutoInit();
@@ -69,8 +67,9 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
                 dropdownOptions: "",
                 //indicators: true
             };
+            //this.myf.configEventLister("click", "save_1", this);
             var elems1 = document.querySelectorAll('select');
-            console.log(elems1)
+            //console.log(elems1)
             //var instances1 = M.FormSelect.init(elems1, options);
             
             /* var elems2 = document.querySelectorAll('.collapsible');
@@ -80,7 +79,7 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
             var instances3 = M.Dropdown.init(elems3, options); */
 
             var elems4 = document.querySelectorAll('.modal');
-            console.log(elems4);
+            //console.log(elems4);
            // var instances = M.Modal.init(elems4, options);
 
             // myInitCode();
@@ -111,15 +110,18 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
     */
     handleEvent(evt: Event): void {
         //console.log(`se hizo "${evt.type}"`);
-
         let element: HTMLElement = this.myf.getElementByEvent(evt);
+        console.log("handleEvent");
         console.log(element.id);
+        console.log(element);
+        console.log(evt);
+        console.log(this);
 
         if (element.id == "save_1") {
             //this.counter++;
             //element.textContent = `Click ${this.counter}`;
 
-            /* let nameId: HTMLElement = this.myf.getElementById("nameId_1");
+            let nameId: HTMLElement = this.myf.getElementById("nameId_1");
             let nameText: string = nameId.value;
             let descriptionId: HTMLElement = this.myf.getElementById("descriptionId_1");
             let descriptionText: string = descriptionId.value;
@@ -132,7 +134,7 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
             let devType: number = devTypeId.value;
             console.log(devType);
             devTypeId.value = 0;
- */
+ 
             //console.log(textArea);
         }
         else

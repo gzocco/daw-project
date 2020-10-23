@@ -80,13 +80,19 @@ class ViewMainPage {
         </div>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+            <a id= save_${dev.id} href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
     </div>
 </li>`;
-//M.AutoInit();
+
+/* let event: string ="click"; 
+let listener: EventListenerObject = ;
+    let elementSave: HTMLElement = document.getElementById('save_${dev.id}');
+    elementSave.addEventListener(event, listener); */
+        
         }
+        // Reinicializo los componentes de Materialize en forma general!
         M.AutoInit();
     }
 
@@ -95,4 +101,5 @@ class ViewMainPage {
         let input: HTMLInputElement = <HTMLInputElement>element;
         return input.checked;
     }
+    
 }
