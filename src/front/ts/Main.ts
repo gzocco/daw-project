@@ -56,41 +56,29 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
         let boton: HTMLElement = document.getElementById("boton");
         // boton.addEventListener("click", this);
         this.myf.configEventLister("click", "boton", this);
-        
-        boton.textContent = "Boton cambiado!!"; // Cambia el texto contenido en el boton, solo para ejemplo.
 
-        M.AutoInit();
+        //boton.textContent = "Boton cambiado!!"; // Cambia el texto contenido en el boton, solo para ejemplo.
+
+        //M.AutoInit();
 
         if (document.readyState !== 'loading') {
             console.log('document is already ready, just execute code here');
-            var options = {
-                dropdownOptions: "",
-                //indicators: true
-            };
-            //this.myf.configEventLister("click", "save_1", this);
-            var elems1 = document.querySelectorAll('select');
-            //console.log(elems1)
-            //var instances1 = M.FormSelect.init(elems1, options);
-            
-            /* var elems2 = document.querySelectorAll('.collapsible');
-            var instances2 = M.Collapsible.init(elems2, options);
-
-            var elems3 = document.querySelectorAll('.dropdown-trigger');
-            var instances3 = M.Dropdown.init(elems3, options); */
-
-            var elems4 = document.querySelectorAll('.modal');
-            //console.log(elems4);
-           // var instances = M.Modal.init(elems4, options);
-
-            // myInitCode();
-        } else {
+            matInit();
+        }
+        else {
             document.addEventListener('DOMContentLoaded', function () {
                 console.log('document was not ready, place code here');
-                //  myInitCode();
+                matInit();
             });
         }
 
-        // function myInitCode() {}
+        function matInit() {
+            M.AutoInit();
+            var optionsColap = {
+            };
+            var elemsColap = document.querySelectorAll('.collapsible');
+            var instanceColap = M.Collapsible.init(elemsColap, optionsColap);
+        }
     }
 
     /* 
@@ -111,34 +99,33 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
     handleEvent(evt: Event): void {
         //console.log(`se hizo "${evt.type}"`);
         let element: HTMLElement = this.myf.getElementByEvent(evt);
-        console.log("handleEvent");
-        console.log(element.id);
-        console.log(element);
-        console.log(evt);
-        console.log(this);
 
-        if (element.id == "save_1") {
+        if (element.id == "boton") {
             //this.counter++;
             //element.textContent = `Click ${this.counter}`;
-
-            let nameId: HTMLElement = this.myf.getElementById("nameId_1");
-            let nameText: string = nameId.value;
-            let descriptionId: HTMLElement = this.myf.getElementById("descriptionId_1");
-            let descriptionText: string = descriptionId.value;
+            let nameIdC: HTMLElement = this.myf.getElementById("nameIdC");
+            let nameText: string = nameIdC.value;
+            let descriptionIdC: HTMLElement = this.myf.getElementById("descriptionIdC");
+            let descriptionText: string = descriptionIdC.value;
             console.log(nameText);
             console.log(descriptionText);
-            descriptionId.value = "Hola";
-            console.log(descriptionText);
+            //descriptionId.value = "Hola";
+            //console.log(descriptionText);
 
-            let devTypeId: HTMLElement = this.myf.getElementById("deviceSelect_1");
-            let devType: number = devTypeId.value;
+            let devTypeIdC: HTMLElement = this.myf.getElementById("deviceSelectC");
+            let devType: number = devTypeIdC.value;
             console.log(devType);
-            devTypeId.value = 0;
- 
+
+            let deviceData = { "name": nameText, "description": descriptionText, "state": "0", "type": devType };
+            this.myf.requestPOST("http://localhost:8000/devices/create", deviceData, this);
+            //var instance = M.Collapsible.getInstance('elemsColap');
+            //instance.close(0);
+            //devTypeId.value = 0;
+
             //console.log(textArea);
         }
         else
-            if (element.id == "boton") {
+            if (element.id == "botonP") {
                 this.counter++;
                 element.textContent = `Click ${this.counter}`;
 

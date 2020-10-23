@@ -73,7 +73,7 @@ app.post('/devices', function (req, res) {
     res.json(df);*/
 });
 
-app.post('/devices/add', function (req, res) {
+app.post('/devices/create', function (req, res) {
     mysql.query('insert into Devices (name, description, state, type) values (?,?,?,?)', [req.body.name, req.body.description, req.body.state, req.body.type], function (err, resp) {
         if (err) {
             res.send(err).status(400);

@@ -93,7 +93,7 @@ let listener: EventListenerObject = ;
         
         }
         // Reinicializo los componentes de Materialize en forma general!
-        M.AutoInit();
+        //M.AutoInit();
     }
 
     getSwitchStateById(id: string): boolean {
