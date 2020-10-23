@@ -73,6 +73,9 @@ app.post('/devices', function (req, res) {
     res.json(df);*/
 });
 
+/*
+*   Metodo de API para crear un nuevo device.
+*/
 app.post('/devices/create', function (req, res) {
     mysql.query('insert into Devices (name, description, state, type) values (?,?,?,?)', [req.body.name, req.body.description, req.body.state, req.body.type], function (err, resp) {
         if (err) {
@@ -83,6 +86,18 @@ app.post('/devices/create', function (req, res) {
     });
 });
 
+/*
+*   Metodo de API para crear un nuevo device.
+*/
+app.post('/devices/remove', function (req, res) {
+    mysql.query('delete from Devices where id= ?', [req.body.id], function (err, resp) {
+        if (err) {
+            res.send(err).status(400);
+            return;
+        }
+        res.send(resp);
+    });
+});
 
 
 app.listen(PORT, function (req, res) {
