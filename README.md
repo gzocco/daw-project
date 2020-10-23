@@ -1,6 +1,6 @@
 ![header](doc/header.png)
 
-# Trabajo Práctico Final - Desarrollo de Aplicaciones Web
+# Trabajo Práctico Final
 
 Autor:
 * Gustavo Zocco
@@ -10,19 +10,21 @@ Docentes:
 * Brian Ducca
 * Santiago Germino
 
-Descripción:
+# Descripción:
 
 El proyecto consiste en el prototipo básico de una Single Page Application (SPA) para el control de un Smart Home. Permite accionar distintos dispositivos mediante switches.
 Para concretar las objetivos propuestos, se desarrollaron distintas funcionalidades tanto en el FrontEnd como en el BackEnd.
 
-Funcionalidades Implementadas:
+# Funcionalidades Implementadas:
 
 FrontEnd:
+
     * Listado de dispositivos creado dinámicamente al cargar la SPA.
     * Agregar un nuevo dispositivo.
 
 Backend:
     Metodos para:
+    
     * Obtener todos los campos de todos los dispositivos.
     * Obtener todos los campos de un dispositivo por id.
     * Crear un dispositivo nuevo.
@@ -31,7 +33,7 @@ Backend:
 En la siguiente Wiki ofrecida por la cátedra de la materia se detallan los primeros pasos para desplegar las dependencias y requerimientos de la SPA. [this link](https://github.com/ce-iot/daw-project-template/wiki).
 
 
-Verificaciones de la API Rest en Backend:
+# Verificaciones de la API Rest en Backend:
 Se realizaron mediante la herramienta curl, como se detalla a continuación:
 
 Método create:
