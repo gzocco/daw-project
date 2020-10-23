@@ -54,11 +54,11 @@ class ViewMainPage {
         </div>
     </a>
     <!-- Modal Trigger -->
-    <a class="waves-effect waves-light btn modal-trigger" href="#modal_${dev.id}">Edit</a>
+    <a class="waves-effect waves-light btn modal-trigger" href="#modal_${dev.id}">Editar</a>
     <!-- Modal Structure -->
     <div id="modal_${dev.id}" class="modal">
         <div class="modal-content">
-            <h4>Device</h4>
+            <h4>Dispositivo</h4>
             <div class="row">
             <div class="input-field col s6">
                 <input placeholder="Nombre del dispositivo" id="nameId_${dev.id}" type="text" class="validate">

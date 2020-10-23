@@ -53,6 +53,7 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
         this.myf.requestGET("http://localhost:8000/devices", this);
         let boton: HTMLElement = document.getElementById("botonOk");
         this.myf.configEventLister("click", "botonOk", this);
+        this.myf.configEventLister("click", "botonClose", this);
 
         if (document.readyState !== 'loading') {
             console.log('Document is already ready, Init Materialize');
@@ -66,13 +67,11 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
         }
 
         function matInit() {
-            M.AutoInit();
-            console.log('Elementos de Materialize inicializados Globalmente.');
-            // Todo: Inicializar por separado cada elemento de Materialize.
-            /* var optionsColap = {
-            };
-            var elemsColap = document.querySelectorAll('.collapsible');
-            var instanceColap = M.Collapsible.init(elemsColap, optionsColap); */
+            //M.AutoInit();
+            var options;
+            var elems = document.querySelectorAll('.collapsible.no-autoinit');
+            var instances = M.Collapsible.init(elems, options);
+            console.log('Elementos de Materialize inicializados.');
         }
     }
 
@@ -93,7 +92,7 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
     */
     handleEvent(evt: Event): void {
         let element: HTMLElement = this.myf.getElementByEvent(evt);
-        
+
         if (element.id == "botonOk") {
             // Reacciono ante el evento del boton de Ok de Agregar dispositivo.
             let nameIdC: HTMLElement = this.myf.getElementById("nameIdC");
@@ -103,16 +102,34 @@ class Main implements EventListenerObject, GETResponseListener, POSTResponseList
             let devTypeIdC: HTMLElement = this.myf.getElementById("deviceSelectC");
             let devType: number = devTypeIdC.value;
             let deviceData = { "name": nameText, "description": descriptionText, "state": "0", "type": devType };
+            // Creo el device con metodo de backend post.
             this.myf.requestPOST("http://localhost:8000/devices/create", deviceData, this);
+            // Cierro el colapsable al guardar.
+            var elems = document.querySelectorAll('.collapsible.no-autoinit');
+            var options;
+            var instances = M.Collapsible.init(elems, options);
+            instances[0].close();
+            // Limpio los valores ingresados para que no figuren si abro nuevamente el colapsible.
+            nameIdC.value = '';
+            descriptionIdC.value = '';
+            devTypeIdC.value = '';
         }
-        else {
-            // Reacciono por click en un elemento tipo switch.
-            let state: boolean = this.view.getSwitchStateById(element.id);
-            // Quito el prefijo del id html para que concuerde con el id de la DB que usa la API.
-            let switchData = { "id": `${element.id.replace('dev_', '')}`, "state": state };
-            //console.log(data);
-            this.myf.requestPOST("http://localhost:8000/devices", switchData, this);
-        }
+        else
+            if (element.id == 'botonClose') {
+                // Cierra el colapsible al presionar boton close.
+                var elems = document.querySelectorAll('.collapsible.no-autoinit');
+                var options;
+                var instances = M.Collapsible.init(elems, options);
+                instances[0].close();
+            }
+            else {
+                // Reacciono por click en un elemento tipo switch.
+                let state: boolean = this.view.getSwitchStateById(element.id);
+                // Quito el prefijo del id html para que concuerde con el id de la DB que usa la API.
+                let switchData = { "id": `${element.id.replace('dev_', '')}`, "state": state };
+                //console.log(data);
+                this.myf.requestPOST("http://localhost:8000/devices", switchData, this);
+            }
     }
 
     handleGETResponse(status: number, response: string): void {
