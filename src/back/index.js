@@ -45,8 +45,7 @@ app.get('/devices/:id', function (req, res, next) {
             return;
         }
         res.send(resp);
-        //console.log(resp);
-    });   
+    });
 });
 
 /*
