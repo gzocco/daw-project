@@ -71,7 +71,7 @@ Al final de este documento se incluye una guía indicando como instalar y config
 
 El proyecto se encuentra conformado principalmente por los siguientes elementos:
 
-## Front:
+## FrontEnd:
 - index.html
 - ts:
   - Main.ts
@@ -80,7 +80,7 @@ El proyecto se encuentra conformado principalmente por los siguientes elementos:
 - static/images
   - Imagenes...
 
-## Back:
+## BackEnd:
 - index.js
 - mysql-connector.js
 
