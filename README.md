@@ -26,8 +26,7 @@ Para concretar las objetivos propuestos, se desarrollaron distintas funcionalida
 
 ## Backend:
 
-    Métodos para:
-    
+Métodos para:    
 - Obtener todos los campos de todos los dispositivos.
 - Obtener todos los campos de un dispositivo por id.
 - Crear un nuevo dispositivo.
@@ -44,7 +43,7 @@ Los requisitos para correr esta aplicación son:
 * Docker 
 * Docker-compose
 
-## Tenes las siguiente Imagenes de Docker instaladas:
+## Tener las siguiente Imagenes de Docker instaladas:
 
 * mysql                   5.7                 d589ea3123e0        6 weeks ago         448MB
 * phpmyadmin/phpmyadmin   latest              dfd1f4649053        7 weeks ago         469MB
@@ -58,13 +57,14 @@ Los requisitos para correr esta aplicación son:
 
 Nota: phpmyadmin se emplea para verificar y/o realizar cambios en la base de datos y no es requerido para correr la SPA.
 
-## Permisos de usuario correctamente configurados
-
-Al final de este documento se incluye una guía indicando como instalar y configurar las requerimientos y dependencias del proyecto. [Instalación-de-dependencias-y-requisitos:]
-
 ## Configuración de Docker-compose
 
 Se requiere un archivo docker-compose.yml con la configuración necesaria para inicar las imágenes y demás configuraciones (red) necesarias para el proyecto.
+
+### Permisos de usuario correctamente configurados
+
+
+Al final de este documento se incluye una guía indicando como instalar y configurar las requerimientos y dependencias del proyecto. [#Instalación-de-dependencias-y-requisitos:]
 
 
 # Estructura del proyecto
