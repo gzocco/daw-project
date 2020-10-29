@@ -75,6 +75,19 @@ app.post('/devices/create', function (req, res) {
 });
 
 /*
+*   Metodo de API para modifcar los campos name, description y type de un device.
+*/
+app.post('/devices/update', function (req, res) {
+    mysql.query('update Devices set name = ?, description = ?, type = ? where id=?', [req.body.name, req.body.description, req.body.type, req.body.id], function (err, resp) {
+        if (err) {
+            res.send(err).status(400);
+            return;
+        }
+        res.send(resp);
+    });
+});
+
+/*
 *   Metodo de API para eliminar un device referenciado por id.
 */
 app.post('/devices/delete', function (req, res) {

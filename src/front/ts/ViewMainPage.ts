@@ -14,7 +14,7 @@ class ViewMainPage {
     constructor(myf: MyFramework) {
         this.myf = myf;
     }
-    
+
     /*
     *   Muestra los dispositivos en la pagina. Crea listado dinamicamente.
     */
@@ -53,7 +53,7 @@ class ViewMainPage {
             </label>
         </div>
     </a>
-    <!-- Modal Trigger -->
+    <!-- Modal Trigger para Editar un device -->
     <a class="waves-effect waves-light btn modal-trigger" href="#modal_${dev.id}">Editar</a>
     <!-- Modal Structure -->
     <div id="modal_${dev.id}" class="modal">
@@ -81,6 +81,18 @@ class ViewMainPage {
         </div>
         <div class="modal-footer">
             <a id= save_${dev.id} href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
+    <!-- Modal Trigger para Eliminar un device -->
+    <a class="waves-effect waves-light btn modal-trigger" href="#modalE_${dev.id}">Eliminar</a>
+    <!-- Modal Structure -->
+    <div id="modalE_${dev.id}" class="modal">
+        <div class="modal-content">
+            <h4>Desea eliminar el dispositivo?</h4>                   
+        </div>
+        <div class="modal-footer">
+            <a id= delete_${dev.id} href="#!" class="modal-close waves-effect waves-green btn-flat">Eliminar</a>
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
     </div>

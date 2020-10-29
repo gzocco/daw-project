@@ -22,7 +22,9 @@ Para concretar las objetivos propuestos, se desarrollaron distintas funcionalida
 * Listado de dispositivos creado dinámicamente al cargar la SPA.
 * Accionamiento de switches y persistencia del estado.
 * Agregar un nuevo dispositivo con todos sus campos.
-* Modificar información de dispositivos. (Solo despliegue de ventana y campos; sin funcionalidad)
+* Modificar información de dispositivos.
+* Eliminar un dispositivo.
+
 
 ## Backend:
 
@@ -31,7 +33,8 @@ Métodos para:
 - Obtener todos los campos de un dispositivo por id.
 - Crear un nuevo dispositivo.
 - Eliminar un dispositivo por id.
-
+- Modificar el valor del estado del switch de un dispositivo por id.
+- Modificar todos los campos de un dispositivo por id.
 
 
 # Dependencias:
@@ -131,6 +134,11 @@ gzocco@gdansk:~$ curl http://localhost:8000/devices/1
 [{"id":1,"name":"Lampara 1","description":"Luz living","state":1,"type":0}]
 ```
 
+## Método update de un device por id:
+```
+gzocco@gdansk:~$ curl -d '{"name":"NameT","description":"DescT","type":"0","id":"1"}' -H 'Content-Type: application/json' http://localhost:8000/devices/update
+{"fieldCount":0,"affectedRows":1,"insertId":0,"serverStatus":2,"warningCount":0,"message":"(Rows matched: 1  Changed: 1  Warnings: 0","protocol41":true,"changedRows":1}
+```
 
 ---
 
