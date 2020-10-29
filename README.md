@@ -91,8 +91,16 @@ El proyecto se encuentra conformado principalmente por los siguientes elementos:
 # Iniciando la Aplicación:
 
 Cumpliendo con las prerequisitos y dependencias, el proyecto se puede iniciar haciendo:
+
+La primera vez que se inicia: (Para evitar que cargue el listado de dispositivos vacio porque no se encuentra creada la base de datos mySql.)
 ```
     git clone https://github.com/gzocco/daw-project.git
+    cd daw-project
+    sh -c 'docker-compose up mysql-server&' && sleep 15 && docker-compose up
+```
+
+Las veces subsiguientes:
+```
     cd daw-project
     docker-compose up
 ```
